@@ -23,5 +23,10 @@ to own systems end-to-end — from notebook to a deployed, monitored endpoint.
 - [insurance-bias-probe](https://github.com/Incheonkirin/insurance-bias-probe-v0) — measuring age/gender bias in LLM responses across structured scenarios
 - *RAG + serving + MLOps flagships in progress — releasing after cleanup*
 
+### Open source
+I contribute to the tools my own projects run on — reproduced and verified locally, not drive-by PRs:
+- **huggingface/sentence-transformers** [#3800](https://github.com/huggingface/sentence-transformers/pull/3800) — fixed a bf16/fp16 training crash across six learning-to-rank losses (float32 loss cast + a regression test).
+- **mlflow/mlflow** — triaged a MySQL migration crash-loop ([#23721](https://github.com/mlflow/mlflow/issues/23721), reproduced on MySQL 8.4) and a `genai.evaluate` regression ([#23746](https://github.com/mlflow/mlflow/issues/23746)).
+
 ### Tech
 Python · PyTorch · LLM eval (ragas) · RAG (BGE-M3, Chroma) · XGBoost · MLflow · Docker · FastAPI
