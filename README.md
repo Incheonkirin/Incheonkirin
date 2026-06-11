@@ -14,8 +14,8 @@ MRC (machine reading comprehension), and enterprise RAG QA systems.
 
 Found by dogfooding my own Korean RAG + evaluation stack,
 [**search_system**](https://github.com/Incheonkirin/search_system) — a Korean
-insurance-clause retrieval testbed (nori BM25 + BGE-M3 hybrid, qrels-based
-eval, failure-class catalog). Most of these share one shape:
+insurance-clause retrieval testbed (nori BM25 + BGE-M3 hybrid, a real-query
+failure catalog, analyzer benchmarks). Most of these share one shape:
 
 > **Data that is valid on one side of a representation boundary silently
 > breaks the other** — NFD Hangul vs. the analyzer, stop strings vs.
