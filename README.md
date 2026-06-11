@@ -1,4 +1,4 @@
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:2B1D16,50:4E342E,100:6D4C41&height=120&text=Mingi%20Jeong&fontColor=EFEBE9&fontSize=40&fontAlignY=50" width="100%" alt="Mingi Jeong" />
+<img src="banner.svg" width="100%" alt="Mingi Jeong" />
 
 **ML/LLM Engineer @ MetLife** — search & RAG systems, LLM serving and evaluation
 
