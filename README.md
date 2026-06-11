@@ -2,6 +2,9 @@
 
 **ML/LLM Engineer @ MetLife** — search & RAG systems, LLM serving and evaluation
 
+Previously 5.5 years on the search team at **42Maru** — Korean BM25/IR engines,
+MRC (machine reading comprehension), and enterprise RAG QA systems.
+
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-3E2723?style=flat-square)](https://www.linkedin.com/in/mingi-jeong-8a9210180/)
 [![Email](https://img.shields.io/badge/Email-5D4037?style=flat-square&logo=gmail&logoColor=EFEBE9)](mailto:incheonkirin@gmail.com)
 
@@ -9,7 +12,10 @@
 
 ## 🔧 Upstream contributions
 
-Found by dogfooding my own Korean RAG + evaluation stack. Most share one shape:
+Found by dogfooding my own Korean RAG + evaluation stack,
+[**search_system**](https://github.com/Incheonkirin/search_system) — a Korean
+insurance-clause retrieval testbed (nori BM25 + BGE-M3 hybrid, qrels-based
+eval, failure-class catalog). Most of these share one shape:
 
 > **Data that is valid on one side of a representation boundary silently
 > breaks the other** — NFD Hangul vs. the analyzer, stop strings vs.
