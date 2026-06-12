@@ -37,8 +37,8 @@ masking and distributed positive alignment in contrastive losses
 **Retrieval training and embedding losses**
 
 - **[sentence-transformers #3800](https://github.com/huggingface/sentence-transformers/pull/3800)** — bf16/fp16 training crash across six learning-to-rank losses. ***(merged)***
-- **[sentence-transformers #3817](https://github.com/huggingface/sentence-transformers/pull/3817)** — fix offset-unaware positive masking in `(Cached)GISTEmbedLoss` with `gather_across_devices`. *(open)*
-- **[sentence-transformers #3816](https://github.com/huggingface/sentence-transformers/pull/3816)** — avoid materializing the full non-FAISS hard-negative mining similarity matrix. *(open)*
+- **[sentence-transformers #3817](https://github.com/huggingface/sentence-transformers/pull/3817)** — fix offset-unaware positive masking in `(Cached)GISTEmbedLoss` with `gather_across_devices`. ***(merged)***
+- **[sentence-transformers #3816](https://github.com/huggingface/sentence-transformers/pull/3816)** — avoid materializing the full non-FAISS hard-negative mining similarity matrix. ***(merged)***
 - **[sentence-transformers #3812](https://github.com/huggingface/sentence-transformers/pull/3812)** — MPS support for cached-loss `RandContext`. *(open)*
 
 **LLM serving and token-boundary correctness**
