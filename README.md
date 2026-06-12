@@ -3,8 +3,9 @@
 **ML/LLM Engineer** — retrieval training internals,
 LLM serving correctness, and search & RAG systems
 
-Previously 5.5 years on the search team at **42Maru** — Korean BM25/IR engines,
-MRC (machine reading comprehension), and enterprise RAG QA systems.
+Previously 5.5 years on the search team at **42Maru** — Korean hybrid retrieval
+(BM25 + dense) with learning-to-rank and hard negatives, adversarial and ablation
+studies for MRC (machine reading comprehension), and enterprise RAG QA systems.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-3E2723?style=flat-square)](https://www.linkedin.com/in/mingi-jeong-8a9210180/)
 [![Email](https://img.shields.io/badge/Email-5D4037?style=flat-square&logo=gmail&logoColor=EFEBE9)](mailto:incheonkirin@gmail.com)
