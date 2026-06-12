@@ -1,7 +1,7 @@
 <img src="banner.svg" width="100%" alt="Mingi Jeong" />
 
-**ML/LLM Engineer @ MetLife** — search & RAG systems, retrieval training,
-LLM serving correctness, and evaluation
+**ML/LLM Engineer @ MetLife** — retrieval training internals,
+LLM serving correctness, and search & RAG systems
 
 Previously 5.5 years on the search team at **42Maru** — Korean BM25/IR engines,
 MRC (machine reading comprehension), and enterprise RAG QA systems.
@@ -12,9 +12,9 @@ MRC (machine reading comprehension), and enterprise RAG QA systems.
 ---
 
 Currently I use Korean/CJK and insurance-domain retrieval as a stress test for
-boundary bugs in production AI systems: analyzers, byte-level tokenizers,
-tool-call parsers, mixed-precision losses, distributed embedding losses, and
-hard-negative mining.
+boundary bugs in production AI systems: mixed-precision and distributed
+embedding losses, hard-negative mining, byte-level tokenizers, tool-call
+parsers, and analyzers.
 
 ## 🔧 Upstream contributions
 
@@ -29,6 +29,24 @@ failure catalog, analyzer benchmarks). Most of these share one shape:
 > bf16 logits vs. a float32 loss. Korean hits these boundaries constantly;
 > English-only test suites never do.
 
+Lately the same probes audit the training signal itself: false-negative
+masking and distributed positive alignment in contrastive losses
+([#3817](https://github.com/huggingface/sentence-transformers/pull/3817)).
+
+**Retrieval training and embedding losses**
+
+- **[sentence-transformers #3800](https://github.com/huggingface/sentence-transformers/pull/3800)** — bf16/fp16 training crash across six learning-to-rank losses. ***(merged)***
+- **[sentence-transformers #3817](https://github.com/huggingface/sentence-transformers/pull/3817)** — fix offset-unaware positive masking in `(Cached)GISTEmbedLoss` with `gather_across_devices`. *(open)*
+- **[sentence-transformers #3816](https://github.com/huggingface/sentence-transformers/pull/3816)** — avoid materializing the full non-FAISS hard-negative mining similarity matrix. *(open)*
+- **[sentence-transformers #3812](https://github.com/huggingface/sentence-transformers/pull/3812)** — MPS support for cached-loss `RandContext`. *(open)*
+
+**LLM serving and token-boundary correctness**
+
+- **[huggingface/transformers #46530](https://github.com/huggingface/transformers/pull/46530)** — `StopStringCriteria` misses CJK stop strings on byte-level tokenizers ([#46519](https://github.com/huggingface/transformers/issues/46519)). *(approved)*
+- **[vllm-project/vllm #45168](https://github.com/vllm-project/vllm/pull/45168)** — Hermes tool parser drops tool calls when a literal `</tool_call>` appears inside a JSON string argument ([#45167](https://github.com/vllm-project/vllm/issues/45167)). *(open)*
+- Same bug class reported in NAVER's [hcx-vllm-plugin](https://github.com/NAVER-Cloud-HyperCLOVA-X/hcx-vllm-plugin/issues/5).
+- **[run-llama/llama_index #21900](https://github.com/run-llama/llama_index/pull/21900)** — `RecursionError` in text splitters when a single CJK/emoji token exceeds `chunk_size`. ***(merged)***
+
 **Search analyzers and query normalization**
 
 - **[apache/lucene #16242](https://github.com/apache/lucene/pull/16242)** — new `HangulCompositionCharFilter` for analysis-nori: NFD-form Hangul was silently unanalyzable as Korean ([#16241](https://github.com/apache/lucene/issues/16241)). *(open)*
@@ -36,24 +54,11 @@ failure catalog, analyzer benchmarks). Most of these share one shape:
 - **[elastic/elasticsearch #151008](https://github.com/elastic/elasticsearch/pull/151008)** — wildcard queries: re-escape operator characters produced by the normalizer. *(open)*
 - **[explosion/spaCy #13974](https://github.com/explosion/spaCy/pull/13974)** — Korean tokenizer collapsed whitespace runs, breaking `doc.text` round-trips and offsets. *(open)*
 
-**LLM serving and token-boundary correctness**
-
-- **[huggingface/transformers #46530](https://github.com/huggingface/transformers/pull/46530)** — `StopStringCriteria` misses CJK stop strings on byte-level tokenizers ([#46519](https://github.com/huggingface/transformers/issues/46519)). *(approved)*
-- **[vllm-project/vllm #45168](https://github.com/vllm-project/vllm/pull/45168)** — Hermes tool parser drops tool calls when a literal `</tool_call>` appears inside a JSON string argument ([#45167](https://github.com/vllm-project/vllm/issues/45167)). *(open)*
-- Same bug class reported in NAVER's [hcx-vllm-plugin](https://github.com/NAVER-Cloud-HyperCLOVA-X/hcx-vllm-plugin/issues/5).
-
-**Retrieval training and embedding losses**
-
-- **[sentence-transformers #3800](https://github.com/huggingface/sentence-transformers/pull/3800)** — bf16/fp16 training crash across six learning-to-rank losses. ***(merged)***
-- **[sentence-transformers #3812](https://github.com/huggingface/sentence-transformers/pull/3812)** — MPS support for cached-loss `RandContext`. *(open)*
-- **[sentence-transformers #3816](https://github.com/huggingface/sentence-transformers/pull/3816)** — avoid materializing the full non-FAISS hard-negative mining similarity matrix. *(open)*
-- **[sentence-transformers #3817](https://github.com/huggingface/sentence-transformers/pull/3817)** — fix offset-unaware positive masking in `(Cached)GISTEmbedLoss` with `gather_across_devices`. *(open)*
-
-**Evaluation, observability, and runtime plumbing**
-
-- **[run-llama/llama_index #21900](https://github.com/run-llama/llama_index/pull/21900)** — `RecursionError` in text splitters when a single CJK/emoji token exceeds `chunk_size`. ***(merged)***
-- **[mlflow #23818](https://github.com/mlflow/mlflow/pull/23818)** — OpenTelemetry retriever-span reassembly.
-- **[ragas #2759](https://github.com/vibrantlabsai/ragas/pull/2759)**, BentoML **[#5632](https://github.com/bentoml/BentoML/pull/5632)** and **[#5633](https://github.com/bentoml/BentoML/pull/5633)**.
+Also: MLflow OpenTelemetry retriever-span reassembly
+([mlflow #23818](https://github.com/mlflow/mlflow/pull/23818)), plus
+[ragas #2759](https://github.com/vibrantlabsai/ragas/pull/2759) and BentoML
+[#5632](https://github.com/bentoml/BentoML/pull/5632) /
+[#5633](https://github.com/bentoml/BentoML/pull/5633).
 
 ---
 
@@ -70,4 +75,4 @@ bug, a clean public artifact, or a result worth explaining without the scaffoldi
 
 ## 🧰 Stack
 
-![Python](https://img.shields.io/badge/Python-3E2723?style=flat-square&logo=python&logoColor=EFEBE9) ![PyTorch](https://img.shields.io/badge/PyTorch-4E342E?style=flat-square&logo=pytorch&logoColor=EFEBE9) ![Elasticsearch / Lucene](https://img.shields.io/badge/Elasticsearch_%2F_Lucene-5D4037?style=flat-square&logo=elasticsearch&logoColor=EFEBE9) ![vLLM](https://img.shields.io/badge/vLLM-6D4C41?style=flat-square) ![MLflow](https://img.shields.io/badge/MLflow-795548?style=flat-square&logo=mlflow&logoColor=EFEBE9)
+![Python](https://img.shields.io/badge/Python-3E2723?style=flat-square&logo=python&logoColor=EFEBE9) ![PyTorch](https://img.shields.io/badge/PyTorch-4E342E?style=flat-square&logo=pytorch&logoColor=EFEBE9) ![vLLM](https://img.shields.io/badge/vLLM-6D4C41?style=flat-square) ![Elasticsearch / Lucene](https://img.shields.io/badge/Elasticsearch_%2F_Lucene-5D4037?style=flat-square&logo=elasticsearch&logoColor=EFEBE9)
