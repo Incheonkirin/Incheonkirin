@@ -1,6 +1,7 @@
 <img src="banner.svg" width="100%" alt="Mingi Jeong" />
 
-**ML/LLM Engineer @ MetLife** — search & RAG systems, LLM serving and evaluation
+**ML/LLM Engineer @ MetLife** — search & RAG systems, retrieval training,
+LLM serving correctness, and evaluation
 
 Previously 5.5 years on the search team at **42Maru** — Korean BM25/IR engines,
 MRC (machine reading comprehension), and enterprise RAG QA systems.
@@ -9,6 +10,11 @@ MRC (machine reading comprehension), and enterprise RAG QA systems.
 [![Email](https://img.shields.io/badge/Email-5D4037?style=flat-square&logo=gmail&logoColor=EFEBE9)](mailto:incheonkirin@gmail.com)
 
 ---
+
+Currently I use Korean/CJK and insurance-domain retrieval as a stress test for
+boundary bugs in production AI systems: analyzers, byte-level tokenizers,
+tool-call parsers, mixed-precision losses, distributed embedding losses, and
+hard-negative mining.
 
 ## 🔧 Upstream contributions
 
@@ -28,11 +34,26 @@ failure catalog, analyzer benchmarks). Most of these share one shape:
 - **[elastic/elasticsearch #151094](https://github.com/elastic/elasticsearch/issues/151094)** — nori's default `XPN` stop tag silently deletes meaning-bearing Korean prefixes, so 비급여 (non-covered) analyzes to 급여 (covered). *(triaged)*
 - **[huggingface/transformers #46530](https://github.com/huggingface/transformers/pull/46530)** — `StopStringCriteria` misses CJK stop strings on byte-level tokenizers ([#46519](https://github.com/huggingface/transformers/issues/46519)). *(approved)*
 - **[vllm-project/vllm #45168](https://github.com/vllm-project/vllm/pull/45168)** — Hermes tool parser drops tool calls when a literal `</tool_call>` appears inside a JSON string argument ([#45167](https://github.com/vllm-project/vllm/issues/45167)). *(open)*
-- **[sentence-transformers #3800](https://github.com/huggingface/sentence-transformers/pull/3800)** — bf16/fp16 training crash across six learning-to-rank losses. ***(merged)***
+- **Hugging Face sentence-transformers**
+  - **[#3800](https://github.com/huggingface/sentence-transformers/pull/3800)** — bf16/fp16 training crash across six learning-to-rank losses. ***(merged)***
+  - **[#3812](https://github.com/huggingface/sentence-transformers/pull/3812)** — MPS support for cached-loss `RandContext`. *(open)*
+  - **[#3816](https://github.com/huggingface/sentence-transformers/pull/3816)** — avoid materializing the full non-FAISS hard-negative mining similarity matrix. *(open)*
+  - **[#3817](https://github.com/huggingface/sentence-transformers/pull/3817)** — fix offset-unaware positive masking in `(Cached)GISTEmbedLoss` with `gather_across_devices`. *(open)*
 - **[explosion/spaCy #13974](https://github.com/explosion/spaCy/pull/13974)** — Korean tokenizer collapsed whitespace runs, breaking `doc.text` round-trips and offsets. *(open)*
 - **[run-llama/llama_index #21900](https://github.com/run-llama/llama_index/pull/21900)** — `RecursionError` in text splitters when a single CJK/emoji token exceeds `chunk_size`. ***(merged)***
 
 Also: [mlflow #23818](https://github.com/mlflow/mlflow/pull/23818) (OTel retriever-span reassembly), [ragas #2759](https://github.com/vibrantlabsai/ragas/pull/2759), BentoML [#5632](https://github.com/bentoml/BentoML/pull/5632)·[#5633](https://github.com/bentoml/BentoML/pull/5633), and the same tool-parser bug class reported in NAVER's [hcx-vllm-plugin](https://github.com/NAVER-Cloud-HyperCLOVA-X/hcx-vllm-plugin/issues/5).
+
+---
+
+## 🧭 Repo map
+
+- **[search_system](https://github.com/Incheonkirin/search_system)** — the public lab: Korean clause retrieval, analyzer probes, hybrid retrieval traces, and failure cases that turn into upstream issues or PRs.
+- **Active upstream forks** — [sentence-transformers](https://github.com/Incheonkirin/sentence-transformers), [transformers](https://github.com/Incheonkirin/transformers), [lucene](https://github.com/Incheonkirin/lucene), [elasticsearch](https://github.com/Incheonkirin/elasticsearch), [vllm](https://github.com/Incheonkirin/vllm): short-lived branches for submitted fixes.
+- **Domain probes** — [population-baseline-risk](https://github.com/Incheonkirin/population-baseline-risk) and [insurance-bias-probe](https://github.com/Incheonkirin/insurance-bias-probe): small public artifacts kept separate from the upstream-fix track.
+
+Private prototypes stay private until they produce either a reproducible upstream
+bug, a clean public artifact, or a result worth explaining without the scaffolding.
 
 ---
 
