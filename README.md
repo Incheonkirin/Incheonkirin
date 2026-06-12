@@ -1,6 +1,6 @@
 <img src="banner.svg" width="100%" alt="Mingi Jeong" />
 
-**ML/LLM Engineer @ MetLife** — retrieval training internals,
+**ML/LLM Engineer ** — retrieval training internals,
 LLM serving correctness, and search & RAG systems
 
 Previously 5.5 years on the search team at **42Maru** — Korean BM25/IR engines,
