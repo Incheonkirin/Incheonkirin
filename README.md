@@ -55,8 +55,10 @@ masking and distributed positive alignment in contrastive losses
 - **[elastic/elasticsearch #151008](https://github.com/elastic/elasticsearch/pull/151008)** — wildcard queries: re-escape operator characters produced by the normalizer. *(open)*
 - **[explosion/spaCy #13974](https://github.com/explosion/spaCy/pull/13974)** — Korean tokenizer collapsed whitespace runs, breaking `doc.text` round-trips and offsets. *(open)*
 
-Also: MLflow OpenTelemetry retriever-span reassembly
-([mlflow #23818](https://github.com/mlflow/mlflow/pull/23818)), plus
+Also in MLflow: OpenTelemetry retriever-span reassembly
+([mlflow #23818](https://github.com/mlflow/mlflow/pull/23818)) and restoring
+dataset expectation/tag logging in `genai.evaluate(scorers=[])`
+([mlflow #23957](https://github.com/mlflow/mlflow/pull/23957)), plus
 [ragas #2759](https://github.com/vibrantlabsai/ragas/pull/2759) and BentoML
 [#5632](https://github.com/bentoml/BentoML/pull/5632) /
 [#5633](https://github.com/bentoml/BentoML/pull/5633).
