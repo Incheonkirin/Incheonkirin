@@ -55,6 +55,10 @@ masking and distributed positive alignment in contrastive losses
 - **[elastic/elasticsearch #151008](https://github.com/elastic/elasticsearch/pull/151008)** — wildcard queries: re-escape operator characters produced by the normalizer. *(open)*
 - **[explosion/spaCy #13974](https://github.com/explosion/spaCy/pull/13974)** — Korean tokenizer collapsed whitespace runs, breaking `doc.text` round-trips and offsets. *(open)*
 
+**Vector search and evaluation infrastructure**
+
+- **[facebookresearch/faiss #5272](https://github.com/facebookresearch/faiss/issues/5272)** — diagnosed that `musllinux` wheels were dropped during the move to official PyPI wheels (`*-musllinux_*` remained in the `cibuildwheel` skip list) and outlined the restore path; upstream shipped the fix in `faiss-cpu 1.14.3` via [#5299](https://github.com/facebookresearch/faiss/pull/5299). *(resolved upstream)*
+
 Also in MLflow: OpenTelemetry retriever-span reassembly
 ([mlflow #23818](https://github.com/mlflow/mlflow/pull/23818)) and restoring
 dataset expectation/tag logging in `genai.evaluate(scorers=[])`
