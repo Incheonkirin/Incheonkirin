@@ -5,7 +5,7 @@ LLM serving correctness, and search & RAG systems
 
 Previously 5.5 years on the search team at **42Maru** — Korean hybrid retrieval
 (BM25 + dense, learning-to-rank, hard negatives), MRC (machine reading
-comprehension), RAG QA, and open-source LLM fine-tuning.
+comprehension), RAG, and open-source LLM fine-tuning.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-3E2723?style=flat-square)](https://www.linkedin.com/in/mingi-jeong-8a9210180/)
 [![Email](https://img.shields.io/badge/Email-5D4037?style=flat-square&logo=gmail&logoColor=EFEBE9)](mailto:incheonkirin@gmail.com)
