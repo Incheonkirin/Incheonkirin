@@ -76,9 +76,10 @@ proposal, post-award schema/annotation and difficulty design, then AI modeling
 and validation. All downloadable on AI Hub.
 
 - **뉴스 기사 기계독해 (news-article MRC)** — 2021, 42Maru lead (PM + design). 400K QA over 360K articles across four answer regimes — extractive, *inference (answer not stated in the passage)*, yes/no, and *unanswerable* — with 5W1H question-type balancing and explicit evidence spans (`clue_text`) for the harder types. [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=577)
-- **국가기록물 초거대 AI 말뭉치 (national-archives LLM corpus)** — 2023, 42Maru lead (PM + design). ~300M-token corpus plus 50K instruction-tuning QA, designed for instruct fine-tuning (Llama2) with persona controls (formal/casual, written/spoken) and a task/output/question instruction format, grounded on national-archive documents. [data](https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71788)
+- **국가기록물 초거대 AI 말뭉치 (national-archives LLM corpus)** — 2023, 42Maru lead (PM + design). ~300M-token corpus plus 50K instruction-tuning QA for instruct fine-tuning (Llama2), designed for utterance diversity — four personas (formal/casual × written/spoken), length-controlled answers (min/max characters and sentences), and answer-with-evidence formats — grounded on national-archive documents. [data](https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71788)
 - **금융·법률 문서 기계독해 (finance/legal MRC)** — 2022, data design + modeling. 400K labeled across five answer types including *table-answer (cell coordinates)* and multiple-choice, over text+table multimodal documents (한국은행 / 금융위 / 법제처). [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71610)
 - **숫자연산 기계독해 (numeric-reasoning MRC)** — 2022, data design + modeling. 415K QA over arithmetic / ratio / date and *multi-fact quantitative comparison*, with single- vs *two-questions-per-passage* complexity control. [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71568)
+- **표 정보 질의응답 (table-information QA)** — 2022, 42Maru participant (data design + modeling). 1M QA over complex tables, designed across extractive and *unanswerable* types with header-depth and row-size complexity tiers across ten domains. [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71565)
 
 ## 🏢 Enterprise NLP/QA at 42Maru (press)
 
