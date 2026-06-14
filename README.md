@@ -40,10 +40,12 @@ masking and distributed positive alignment in contrastive losses
 - **[sentence-transformers #3817](https://github.com/huggingface/sentence-transformers/pull/3817)** — on multi-GPU `gather_across_devices`, gathered positives in `GISTEmbedLoss`/`CachedGISTEmbedLoss` were masked as false negatives, so the cross-entropy target collapsed to `-inf` and the training signal silently vanished on rank > 0. Surfaced with a Korean polarity probe; it also covered a regression the earlier in-batch-negative fix (#3453) had left in the GIST losses. ***(merged)***
 - **[sentence-transformers #3816](https://github.com/huggingface/sentence-transformers/pull/3816)** — avoid materializing the full non-FAISS hard-negative mining similarity matrix. ***(merged)***
 - **[sentence-transformers #3812](https://github.com/huggingface/sentence-transformers/pull/3812)** — MPS support for cached-loss `RandContext`. ***(merged)***
+- **[sentence-transformers #3821](https://github.com/huggingface/sentence-transformers/pull/3821)** — hard-negative mining's relative-margin threshold was sign-dependent and inverted on negative positive-scores; made it sign-independent ([#3819](https://github.com/huggingface/sentence-transformers/issues/3819)). *(open)*
 
-**LLM serving and token-boundary correctness**
+**LLM serving and model internals**
 
 - **[huggingface/transformers #46530](https://github.com/huggingface/transformers/pull/46530)** — `StopStringCriteria` misses CJK stop strings on byte-level tokenizers ([#46519](https://github.com/huggingface/transformers/issues/46519)). ***(merged)***
+- **[huggingface/transformers #46624](https://github.com/huggingface/transformers/pull/46624)** — dynamic RoPE never reset `inv_freq` on the `layer_type=None` path (it wrote `max_seq_len_cached` to a stray `None_…` attribute), so a long sequence followed by a short one kept the scaled frequencies. *(open)*
 - **[vllm-project/vllm #45168](https://github.com/vllm-project/vllm/pull/45168)** — Hermes tool parser drops tool calls when a literal `</tool_call>` appears inside a JSON string argument ([#45167](https://github.com/vllm-project/vllm/issues/45167)). *(open)*
 - Same bug class reported in NAVER's [hcx-vllm-plugin](https://github.com/NAVER-Cloud-HyperCLOVA-X/hcx-vllm-plugin/issues/5).
 - **[run-llama/llama_index #21900](https://github.com/run-llama/llama_index/pull/21900)** — `RecursionError` in text splitters when a single CJK/emoji token exceeds `chunk_size`. ***(merged)***
@@ -51,7 +53,7 @@ masking and distributed positive alignment in contrastive losses
 **Search analyzers and query normalization**
 
 - **[apache/lucene #16242](https://github.com/apache/lucene/pull/16242)** — new `HangulCompositionCharFilter` for analysis-nori: NFD-form Hangul was silently unanalyzable as Korean ([#16241](https://github.com/apache/lucene/issues/16241)). *(open)*
-- **[elastic/elasticsearch #151094](https://github.com/elastic/elasticsearch/issues/151094)** — nori's default `XPN` stop tag silently deletes meaning-bearing Korean prefixes, so 비급여 (non-covered) analyzes to 급여 (covered). *(triaged)*
+- **[elastic/elasticsearch #151094](https://github.com/elastic/elasticsearch/issues/151094)** — nori's default `XPN` stop tag silently deletes meaning-bearing Korean prefixes, so 비급여 (non-covered) analyzes to 급여 (covered); fix is a maintainer-invited docs warning ([#151157](https://github.com/elastic/elasticsearch/pull/151157)). *(open)*
 - **[elastic/elasticsearch #151008](https://github.com/elastic/elasticsearch/pull/151008)** — wildcard queries: re-escape operator characters produced by the normalizer. *(open)*
 - **[explosion/spaCy #13974](https://github.com/explosion/spaCy/pull/13974)** — Korean tokenizer collapsed whitespace runs, breaking `doc.text` round-trips and offsets. *(open)*
 
