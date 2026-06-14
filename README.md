@@ -4,8 +4,8 @@
 LLM serving correctness, and search & RAG systems
 
 Previously 5.5 years on the search team at **42Maru** — Korean hybrid retrieval
-(BM25 + dense) with learning-to-rank and hard negatives, adversarial and ablation
-studies for MRC (machine reading comprehension), and enterprise RAG QA systems.
+(BM25 + dense, learning-to-rank, hard negatives), MRC (machine reading
+comprehension), RAG QA, and open-source LLM fine-tuning.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-3E2723?style=flat-square)](https://www.linkedin.com/in/mingi-jeong-8a9210180/)
 [![Email](https://img.shields.io/badge/Email-5D4037?style=flat-square&logo=gmail&logoColor=EFEBE9)](mailto:incheonkirin@gmail.com)
@@ -69,6 +69,28 @@ dataset expectation/tag logging in `genai.evaluate(scorers=[])`
 
 ---
 
+## 📊 Public datasets — NIA AI Hub (42Maru)
+
+Drove these government-published Korean NLP datasets end-to-end at 42Maru —
+proposal, post-award schema/annotation and difficulty design, then AI modeling
+and validation. All downloadable on AI Hub.
+
+- **뉴스 기사 기계독해 (news-article MRC)** — 2021, 42Maru lead (PM + design). 400K QA over 360K articles across four answer regimes — extractive, *inference (answer not stated in the passage)*, yes/no, and *unanswerable* — with 5W1H question-type balancing and explicit evidence spans (`clue_text`) for the harder types. [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=577)
+- **국가기록물 초거대 AI 말뭉치 (national-archives LLM corpus)** — 2023, 42Maru lead (PM + design). ~300M-token corpus plus 50K instruction-tuning QA, designed for instruct fine-tuning (Llama2) with persona controls (formal/casual, written/spoken) and a task/output/question instruction format, grounded on national-archive documents. [data](https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71788)
+- **금융·법률 문서 기계독해 (finance/legal MRC)** — 2022, data design + modeling. 400K labeled across five answer types including *table-answer (cell coordinates)* and multiple-choice, over text+table multimodal documents (한국은행 / 금융위 / 법제처). [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71610)
+- **숫자연산 기계독해 (numeric-reasoning MRC)** — 2022, data design + modeling. 415K QA over arithmetic / ratio / date and *multi-fact quantitative comparison*, with single- vs *two-questions-per-passage* complexity control. [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71568)
+
+## 🏢 Enterprise NLP/QA at 42Maru (press)
+
+Closed-source enterprise deployments I worked on as a technical planner —
+experiment design, evaluation, and search-quality / data improvements with the
+research and engineering teams.
+
+- **AI ship-sales design-support system — Daewoo Shipbuilding (DSME)**: semantic QA over ~100K historical records for shipowners' pre-contract technical inquiries. [press](http://www.aitimes.kr/news/articleView.html?idxno=13427)
+- **AML / trade-based transaction detection — Hana Bank**: OCR-NLP over cross-border remittance invoices. [press](https://www.venturesquare.net/844917)
+
+---
+
 ## 🧭 Repo map
 
 - **[search_system](https://github.com/Incheonkirin/search_system)** — the public lab: Korean clause retrieval, analyzer probes, hybrid retrieval traces, and failure cases that turn into upstream issues or PRs.
@@ -82,4 +104,4 @@ bug, a clean public artifact, or a result worth explaining without the scaffoldi
 
 ## 🧰 Stack
 
-![Python](https://img.shields.io/badge/Python-3E2723?style=flat-square&logo=python&logoColor=EFEBE9) ![PyTorch](https://img.shields.io/badge/PyTorch-4E342E?style=flat-square&logo=pytorch&logoColor=EFEBE9) ![vLLM](https://img.shields.io/badge/vLLM-6D4C41?style=flat-square) ![Elasticsearch / Lucene](https://img.shields.io/badge/Elasticsearch_%2F_Lucene-5D4037?style=flat-square&logo=elasticsearch&logoColor=EFEBE9)
+![Python](https://img.shields.io/badge/Python-3E2723?style=flat-square&logo=python&logoColor=EFEBE9) ![PyTorch](https://img.shields.io/badge/PyTorch-4E342E?style=flat-square&logo=pytorch&logoColor=EFEBE9) ![vLLM](https://img.shields.io/badge/vLLM-6D4C41?style=flat-square) ![Elasticsearch / Lucene](https://img.shields.io/badge/Elasticsearch_%2F_Lucene-5D4037?style=flat-square&logo=elasticsearch&logoColor=EFEBE9) ![SFT / DPO / LoRA](https://img.shields.io/badge/SFT_%2F_DPO_%2F_LoRA-795548?style=flat-square)
