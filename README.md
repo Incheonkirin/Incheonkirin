@@ -85,16 +85,16 @@ OCR/NLP pipelines for real customer workflows.
 
 ## 📊 Public artifacts from 42Maru — NIA AI Hub
 
-Government-published Korean NLP artifacts from projects I worked on at 42Maru:
-large-scale QA/MRC corpora and LLM instruction data shaped by Korean search,
-reasoning, table QA, and domain-document behavior. ~2.3M labeled QA pairs plus
-a ~300M-token corpus across five public releases, all downloadable on AI Hub.
+Government-published Korean NLP artifacts from 42Maru projects I worked on:
+five AI Hub releases across news MRC, national-archives LLM instruction data,
+finance/legal MRC, numeric reasoning MRC, and table QA. ~2.3M labeled QA pairs
+plus a ~300M-token corpus.
 
-- **뉴스 기사 기계독해 (news-article MRC)** — 2021, 42Maru lead. Four answer regimes including *inference* and *unanswerable*, with evidence spans for the hard cases. [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=577)
-- **국가기록물 초거대 AI 말뭉치 (national-archives LLM corpus)** — 2023, 42Maru lead. Instruction-tuning data for an LLM (Llama2), with four personas (formal/casual × written/spoken) and length-controlled answers. [data](https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71788)
-- **금융·법률 문서 기계독해 (finance/legal MRC)** — 2022. Text+table multimodal QA with *cell-coordinate table answers* and multiple-choice. [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71610)
-- **숫자연산 기계독해 (numeric-reasoning MRC)** — 2022. Numeric reasoning — arithmetic, ratio, date, and *multi-fact comparison*. [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71568)
-- **표 정보 질의응답 (table-information QA)** — 2022. Complex-table QA with *unanswerable* cases and complexity tiers, informed by English table-QA benchmarks. [data](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71565)
+[news MRC](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=577) ·
+[national-archives LLM corpus](https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71788) ·
+[finance/legal MRC](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71610) ·
+[numeric-reasoning MRC](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71568) ·
+[table QA](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71565)
 
 ---
 
