@@ -15,7 +15,7 @@ Korean search, fixed where it breaks — upstream: Hangul NFD normalization into
 
 ## Search depth
 
-[**search_system**](https://github.com/Incheonkirin/search_system) — a Korean insurance-clause (약관) retrieval lab over 36,983 clause passages with 491 hand-graded queries: nori BM25 + BGE-M3 hybrid retrieval, analyzer probes, real-query failures. For each Korean failure I took upstream, the lab holds a before/after fixture tied to the fix and a regression test:
+[**search_system**](https://github.com/Incheonkirin/search_system) — a Korean insurance-clause (약관) retrieval lab over 36,983 clause passages with 700 hand-graded queries: nori BM25 + BGE-M3 hybrid retrieval, analyzer probes, real-query failures. For each Korean failure I took upstream, the lab holds a before/after fixture tied to the fix and a regression test:
 
 - **XPN polarity (비급여 → 급여)** — nori's default analyzer drops the meaning-bearing prefix, so 비급여 (non-covered) indexes as 급여 (covered) and opposite-meaning clauses become indistinguishable. Reproduced and pinned; documented upstream (Elasticsearch #151157).
 - **NFD Hangul** — NFD-decomposed Hangul is unanalyzable as Korean. Fixed via the new `HangulCompositionCharFilter` (Lucene #16242, Muir-approved).
