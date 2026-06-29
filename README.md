@@ -1,5 +1,3 @@
-<img src="banner.svg" width="100%" alt="Mingi Jeong" />
-
 # Mingi Jeong (정민기)
 
 **Korean search & retrieval ML engineer** — analyzer correctness, ranking losses, LLM serving · 7y · Python · PyTorch
