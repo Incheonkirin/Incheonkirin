@@ -59,9 +59,9 @@ Built or prototyped in `search_system` / production:
 
 ## Production & earlier
 
-**MetLife** (current) — churn, fraud, agent activation, cross-sell on Azure ML / Databricks. Deploy, retrain, monitor; online A/B tests for model rollouts.
+**MetLife** (current) — production insurance ML on Databricks: churn, fraud-risk, distribution-channel performance, and cross-sell models tied to customer and channel decisions. Build and operate the lifecycle from data/features and training to deployment, retraining, monitoring, and online A/B-tested rollouts.
 
-**42Maru** — search team, 5.5y. BM25 IR, contrastive retrieval, RAG QA, MRC, SFT / DPO / LoRA, large-scale indexing and crawlers.
+**42Maru** — search team, 5.5y. Production search, retrieval, and QA systems: BM25 relevance, contrastive retrieval, RAG QA, MRC, large-scale indexing, and crawler pipelines.
 
 ### Enterprise NLP/QA at 42Maru (press)
 
