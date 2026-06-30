@@ -2,7 +2,7 @@
 
 **Korean search & retrieval ML engineer** — analyzer correctness, ranking losses, LLM serving · 7y · Python · PyTorch
 
-Korean search, fixed where it breaks — upstream: a Hangul NFD-composition char filter merged into Apache Lucene's nori analyzer (#16242); the meaning-inverting nori XPN default (비급여 *non-covered* → 급여 *covered*) now warned in the official Elasticsearch docs (#151157); a ListMLE/PListMLE padding fix in sentence-transformers (#3827; maintainer-measured NanoBEIR nDCG@10 0.39 → 0.53). Previously 5.5y on the search team at 42Maru; now at MetLife on production ML.
+Korean search, fixed where it breaks — upstream: a Hangul NFD-composition char filter merged into Apache Lucene's nori analyzer ([apache/lucene #16242](https://github.com/apache/lucene/pull/16242)); the meaning-inverting nori XPN default (비급여 *non-covered* → 급여 *covered*) now warned in the official Elasticsearch docs ([elastic/elasticsearch #151157](https://github.com/elastic/elasticsearch/pull/151157)); a ListMLE/PListMLE padding fix in sentence-transformers ([sentence-transformers #3827](https://github.com/huggingface/sentence-transformers/pull/3827); maintainer-measured NanoBEIR nDCG@10 0.39 → 0.53). Previously 5.5y on the search team at 42Maru; now at MetLife on production ML.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-3E2723?style=flat-square)](https://www.linkedin.com/in/mingi-jeong-8a9210180/)
 [![Email](https://img.shields.io/badge/Email-5D4037?style=flat-square&logo=gmail&logoColor=EFEBE9)](mailto:incheonkirin@gmail.com)
