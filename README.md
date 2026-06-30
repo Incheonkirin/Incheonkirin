@@ -15,8 +15,8 @@ Korean search, fixed where it breaks — upstream: a Hangul NFD-composition char
 
 [**search_system**](https://github.com/Incheonkirin/search_system) — a Korean insurance-clause (약관) retrieval lab over 36,983 clause passages with 700 hand-graded queries: nori BM25 + BGE-M3 hybrid retrieval, analyzer probes, real-query failures. For each Korean failure I took upstream, the lab holds a before/after fixture tied to the fix and a regression test:
 
-- **XPN polarity (비급여 → 급여)** — nori's default analyzer drops the meaning-bearing prefix, so 비급여 (non-covered) indexes as 급여 (covered) and opposite-meaning clauses become indistinguishable. Reproduced and pinned; documented upstream (Elasticsearch #151157).
-- **NFD Hangul** — NFD-decomposed Hangul reaches `KoreanTokenizer` as conjoining jamo and is silently unanalyzable as Korean. Added an opt-in `HangulCompositionCharFilter` that composes it to precomposed syllables with offset correction, merged into Apache Lucene's nori analyzer (#16242).
+- **XPN polarity (비급여 → 급여)** — nori's default analyzer drops the meaning-bearing prefix, so 비급여 (non-covered) indexes as 급여 (covered) and opposite-meaning clauses become indistinguishable. Reproduced and pinned; documented upstream ([elastic/elasticsearch #151157](https://github.com/elastic/elasticsearch/pull/151157)).
+- **NFD Hangul** — NFD-decomposed Hangul reaches `KoreanTokenizer` as conjoining jamo and is silently unanalyzable as Korean. Added an opt-in `HangulCompositionCharFilter` that composes it to precomposed syllables with offset correction, merged into Apache Lucene's nori analyzer ([apache/lucene #16242](https://github.com/apache/lucene/pull/16242)).
 
 The lab is also where I compare offline variants — analyzer choices (형태소 분석기), fusion weights, reranker on/off — on the qrels benchmark, decided by nDCG / Recall. The scorecard harness (nori-BM25 → BGE-M3 → RRF → cross-encoder, human-graded qrels, paired bootstrap) is implemented for runs over the human-graded qrels.
 
@@ -25,7 +25,7 @@ The lab is also where I compare offline variants — analyzer choices (형태소
 Built or prototyped in `search_system` / production:
 
 - **Ranking** — LambdaMART / two-tower, late-interaction (ColBERT / MaxSim), hybrid fusion vs. fixed RRF.
-- **Serving** — quantized + distilled reranker, p99 cascade budget, Docker / Kubernetes; FP8 dequant (transformers #46763); Transformers continuous-batching internals; vLLM Hermes tool-parser.
+- **Serving** — quantized + distilled reranker, p99 cascade budget, Docker / Kubernetes; FP8 dequant ([huggingface/transformers #46763](https://github.com/huggingface/transformers/pull/46763)); Transformers continuous-batching internals; vLLM Hermes tool-parser.
 - **LLM** — RAG (MLX / vLLM) with citation / abstention eval, post-training (SFT / DPO / LoRA), LLM for search-quality (query rewriting, relevance judging).
 - **Data** — Spark / Databricks embedding, near-real-time index refresh, Elasticsearch / OpenSearch + FAISS (C++) tuning.
 - **Recommendation** — cross-sell with online A/B tests (MetLife).
@@ -53,7 +53,7 @@ Built or prototyped in `search_system` / production:
 - **[pytorch/pytorch #187779](https://github.com/pytorch/pytorch/pull/187779)** — MPS fused RMSNorm multiplied weights in fp16/bf16; do the weight multiply in fp32 before the final cast to match CPU/CUDA. *(approved, pending merge)*
 - **[vllm-project/vllm #45168](https://github.com/vllm-project/vllm/pull/45168)** — Hermes tool parser drops tool calls when a literal `</tool_call>` appears inside a JSON string argument ([#45167](https://github.com/vllm-project/vllm/issues/45167)). *(open)*
 
-**Also (Korean & search infra)** — Korean tokenizer offsets (spaCy #13974), FAISS musllinux wheels restored (#5272). Reported issue: NAVER hcx-vllm-plugin #5 (`<|im_end|>` parser boundary). [Full PR list →](https://github.com/search?q=author%3AIncheonkirin+type%3Apr&type=pullrequests)
+**Also (Korean & search infra)** — Korean tokenizer offsets ([explosion/spaCy #13974](https://github.com/explosion/spaCy/pull/13974)), FAISS musllinux wheels restored ([facebookresearch/faiss #5272](https://github.com/facebookresearch/faiss/issues/5272)). Reported issue: [NAVER hcx-vllm-plugin #5](https://github.com/NAVER-Cloud-HyperCLOVA-X/hcx-vllm-plugin/issues/5) (`<|im_end|>` parser boundary). [Full PR list →](https://github.com/search?q=author%3AIncheonkirin+type%3Apr&type=pullrequests)
 
 ---
 
