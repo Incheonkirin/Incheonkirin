@@ -13,12 +13,12 @@ Korean search, fixed where it breaks — upstream: a Hangul NFD-composition char
 
 ## Search depth
 
-[**search_system**](https://github.com/Incheonkirin/search_system) — a Korean insurance-clause (약관) retrieval lab over 36,983 clause passages with 700 hand-graded queries: nori BM25 + BGE-M3 hybrid retrieval, analyzer probes, real-query failures. For each Korean failure I took upstream, the lab holds a before/after fixture tied to the fix and a regression test:
+**Korean evidence-retrieval lab** — built a private clause-retrieval system over 36,983 evidence passages, using nori BM25, BGE-M3 hybrid retrieval, cross-text reranking, analyzer probes, and real-query failure analysis. On a 544-row silver retrieval study, cross-text reranking lifted `clause@20` from 56.4% to 64.9% (+8.5%p paired bootstrap CI: +5.9 to +11.2). A separate public companion, [**ko-evidence-bench**](https://github.com/Incheonkirin/ko-evidence-bench), publishes the privacy-safe scorecard, synthetic probes, aggregate study, and qid-only run contract.
 
 - **XPN polarity (비급여 → 급여)** — nori's default analyzer drops the meaning-bearing prefix, so 비급여 (non-covered) indexes as 급여 (covered) and opposite-meaning clauses become indistinguishable. Reproduced and pinned; documented upstream ([elastic/elasticsearch #151157](https://github.com/elastic/elasticsearch/pull/151157)).
 - **NFD Hangul** — NFD-decomposed Hangul reaches `KoreanTokenizer` as conjoining jamo and is silently unanalyzable as Korean. Added an opt-in `HangulCompositionCharFilter` that composes it to precomposed syllables with offset correction, merged into Apache Lucene's nori analyzer ([apache/lucene #16242](https://github.com/apache/lucene/pull/16242)).
 
-The lab is also where I compare offline variants — analyzer choices (형태소 분석기), fusion weights, reranker on/off — on the qrels benchmark, decided by nDCG / Recall. The scorecard harness (nori-BM25 → BGE-M3 → RRF → cross-encoder, human-graded qrels, paired bootstrap) is implemented for runs over the human-graded qrels.
+The lab is also where I compare offline variants — analyzer choices (형태소 분석기), fusion weights, reranker on/off — with nDCG / Recall and paired bootstrap. It includes a 444-triple polarity stress study that catches opposite-meaning evidence being preferred even when ordinary retrieval looks plausible. The released reports scope these measurements as aggregate silver diagnostics; human answer-quality and source-routing claims are evaluated separately.
 
 ## Across the stack
 
@@ -85,7 +85,8 @@ Government-published Korean NLP artifacts from 42Maru projects I worked on: five
 
 ## Repo map
 
-- **[search_system](https://github.com/Incheonkirin/search_system)** — Korean clause retrieval lab: nori BM25 + BGE-M3 hybrid retrieval, analyzer probes, real-query failures, and traces that feed the upstream work above.
+- **[ko-evidence-bench](https://github.com/Incheonkirin/ko-evidence-bench)** — public, privacy-safe companion for Korean evidence-retrieval evaluation: source routing, abstention, surface robustness, and aggregate-only study artifacts.
+- **Private search lab** — Korean clause retrieval experiments: nori BM25 + BGE-M3 hybrid retrieval, analyzer probes, real-query failures, and traces that feed the upstream work above.
 - **Selected upstream workspaces** — [sentence-transformers](https://github.com/Incheonkirin/sentence-transformers), [transformers](https://github.com/Incheonkirin/transformers), [lucene](https://github.com/Incheonkirin/lucene), [elasticsearch](https://github.com/Incheonkirin/elasticsearch), [vllm](https://github.com/Incheonkirin/vllm): short-lived branches for submitted fixes and repros.
 - **Domain probes** — [insurance-bias-probe](https://github.com/Incheonkirin/insurance-bias-probe): focused artifacts around insurance-domain behavior and model/system bias.
 
