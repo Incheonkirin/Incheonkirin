@@ -19,8 +19,9 @@ I also turn failure modes observed in production MRC/LLM R&D into public data an
 
 - **XPN polarity (비급여 → 급여)** — nori's default analyzer drops the meaning-bearing prefix, so 비급여 (non-covered) indexes as 급여 (covered) and opposite-meaning clauses become indistinguishable. Reproduced and pinned; documented upstream ([elastic/elasticsearch #151157](https://github.com/elastic/elasticsearch/pull/151157)).
 - **NFD Hangul** — NFD-decomposed Hangul reaches `KoreanTokenizer` as conjoining jamo and is silently unanalyzable as Korean. Added an opt-in `HangulCompositionCharFilter` that composes it to precomposed syllables with offset correction, merged into Apache Lucene's nori analyzer ([apache/lucene #16242](https://github.com/apache/lucene/pull/16242)).
+- **Token-graph phrase correctness** — an exact Korean source phrase returned zero hits because graph phrase construction dropped or misplaced position gaps. Fixed both query paths with Lucene span tests and a nori end-to-end regression ([elastic/elasticsearch #152931](https://github.com/elastic/elasticsearch/pull/152931)).
 
-The lab is also where I compare offline variants — analyzer choices (형태소 분석기), fusion weights, reranker on/off — with nDCG / Recall and paired bootstrap. It includes a 444-triple polarity stress study that catches opposite-meaning evidence being preferred even when ordinary retrieval looks plausible. The released reports scope these measurements as aggregate silver diagnostics; human answer-quality and source-routing claims are evaluated separately.
+The [representation-correctness case study](https://github.com/Incheonkirin/ko-evidence-bench/tree/main/case_studies/korean-retrieval-correctness) connects those three upstream investigations to a 444-triple polarity stress study across lexical, dense, and reranked systems. The released reports scope these measurements as aggregate silver diagnostics; human answer-quality and source-routing claims are evaluated separately.
 
 ## Across the stack
 
@@ -40,7 +41,8 @@ Built or prototyped in `search_system` / production:
 
 - **[sentence-transformers #3827](https://github.com/huggingface/sentence-transformers/pull/3827)** — ListMLE/PListMLE listwise reranker losses mixed padding positions into the Plackett-Luce normalizer; excluded the padding. The maintainer measured NanoBEIR nDCG@10 0.39 → 0.53 (ListMLE). ***(merged)***
 - **[apache/lucene #16242](https://github.com/apache/lucene/pull/16242)** — added an opt-in `HangulCompositionCharFilter` to Lucene's nori analyzer: composes NFD-form modern Hangul (conjoining L/V/T jamo) into precomposed syllables before `KoreanTokenizer`, preserving offset correction; intentionally narrow, leaving compatibility/archaic jamo and precomposed text untouched. Reviewed and merged by Robert Muir, who confirmed the constants/formula match Unicode Hangul syllable composition. ***(merged)***
-- **[elastic/elasticsearch #151157](https://github.com/elastic/elasticsearch/pull/151157)** — found that nori's default analyzer silently strips Korean negation prefixes (비급여 *non-covered* → 급여 *covered*, 부담보 → 담보), so opposite-meaning clauses index identically; traced to the default `XPN` stop tag and now warned in the official Elasticsearch nori docs. ***(merged)***
+- **[elastic/elasticsearch #151157](https://github.com/elastic/elasticsearch/pull/151157)** — found that nori's default analyzer silently strips meaning-bearing Korean prefixes (비급여 *non-covered* → 급여 *covered*, 부담보 → 담보), so opposite-meaning clauses index identically; traced to the default `XPN` stop tag and now warned in the official Elasticsearch nori docs. ***(merged)***
+- **[elastic/elasticsearch #152931](https://github.com/elastic/elasticsearch/pull/152931)** — graph phrase queries lost the position holes left by token-removing filters (nori decompound + part-of-speech, or synonym_graph + stop), so `match_phrase` with a document's exact source text could return nothing at slop 0; fixed the misplaced `SpanGap` and the dropped gaps between graph segments, with an `analysis-nori` end-to-end test. ***(merged)***
 
 **Embedding losses & model internals**
 
@@ -59,7 +61,6 @@ Built or prototyped in `search_system` / production:
 **Current / recent**
 
 - **[pytorch/pytorch #187779](https://github.com/pytorch/pytorch/pull/187779)** — MPS fused RMSNorm multiplied weights in fp16/bf16; do the weight multiply in fp32 before the final cast to match CPU/CUDA. *(approved, pending merge)*
-- **[elastic/elasticsearch #152931](https://github.com/elastic/elasticsearch/pull/152931)** — graph phrase queries lost the position holes left by token-removing filters (nori decompound + part-of-speech, or synonym_graph + stop), so `match_phrase` with a document's exact source text could return nothing at slop 0; fixed the misplaced `SpanGap` and the dropped gaps between graph segments, with an `analysis-nori` end-to-end test. ***(merged)***
 - **[vllm-project/vllm #45168](https://github.com/vllm-project/vllm/pull/45168)** — reproduced a Hermes tool-parser boundary where a literal `</tool_call>` inside a JSON string argument drops the tool call ([#45167](https://github.com/vllm-project/vllm/issues/45167)). *(closed without merge)*
 
 **Also (Korean & search infra)** — Korean tokenizer offsets ([explosion/spaCy #13974](https://github.com/explosion/spaCy/pull/13974)), FAISS musllinux wheels restored ([facebookresearch/faiss #5272](https://github.com/facebookresearch/faiss/issues/5272)). Reported issue: [NAVER hcx-vllm-plugin #5](https://github.com/NAVER-Cloud-HyperCLOVA-X/hcx-vllm-plugin/issues/5) (`<|im_end|>` parser boundary). [Full PR list →](https://github.com/search?q=author%3AIncheonkirin+type%3Apr&type=pullrequests)
@@ -101,7 +102,7 @@ This is downstream dataset impact, not a claim that I authored those papers: pub
 ## Repo map
 
 - **[search_system](https://github.com/Incheonkirin/search_system)** — runnable Korean insurance-clause retrieval stack: nori BM25, BGE-M3 embeddings, hybrid fusion, cross-encoder reranking, Elasticsearch, and a FastAPI service.
-- **[ko-evidence-bench](https://github.com/Incheonkirin/ko-evidence-bench)** — privacy-safe evaluation companion for Korean evidence retrieval: source routing, abstention, surface robustness, synthetic probes, and aggregate study artifacts.
+- **[ko-evidence-bench](https://github.com/Incheonkirin/ko-evidence-bench)** — privacy-safe evaluation companion for Korean evidence retrieval: source routing, abstention, surface robustness, synthetic probes, aggregate study artifacts, and a [Korean representation-correctness case study](https://github.com/Incheonkirin/ko-evidence-bench/tree/main/case_studies/korean-retrieval-correctness).
 - **[fraud-dataset-validity](https://github.com/Incheonkirin/fraud-dataset-validity)** — reproducible shortcut and validity audit of public synthetic fraud datasets, with external anchors and model-sensitivity checks. It is a dataset-audit case study, not a claim of real-world insurance-fraud performance.
 - **[insurance-bias-probe](https://github.com/Incheonkirin/insurance-bias-probe)** — controlled demographic-consistency probes for Korean insurance answers.
 - **Upstream evidence** — the merged fixes are inspected in the [full PR record](https://github.com/search?q=author%3AIncheonkirin+type%3Apr&type=pullrequests); the local upstream mirrors remain private working copies rather than portfolio projects.
