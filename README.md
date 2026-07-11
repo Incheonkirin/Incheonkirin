@@ -13,11 +13,23 @@ sentence-transformers, and Transformers.
 
 ## Selected Evidence
 
-| Layer | Verified result | Research and upstream proof |
-|---|---|---|
-| **Neural ranking** | Padding changed ListMLE/PListMLE loss and valid-document gradients. Maintainer-reported NanoBEIR R100 mean nDCG@10: ListMLE `~0.39 -> 0.529`; matched PListMLE `0.514 -> 0.525`. | [Research study](case-studies/listmle-padding-correctness.md) · [sentence-transformers #3827](https://github.com/huggingface/sentence-transformers/pull/3827) |
-| **Query semantics** | An exact Korean source phrase produced `match=1`, `match_phrase(slop=0)=0`, `match_phrase(slop=1)=1`. Fixed two graph position-gap paths. | [Research study](https://github.com/Incheonkirin/ko-evidence-bench/blob/main/case_studies/korean-retrieval-correctness/exact-phrase-zero-results.md) · [Elasticsearch #152931](https://github.com/elastic/elasticsearch/pull/152931) |
-| **Text representation** | Added an offset-correct Hangul composition filter so canonically equivalent NFD/NFC modern Hangul can receive equivalent nori analysis. | [Research study](https://github.com/Incheonkirin/ko-evidence-bench/tree/main/case_studies/korean-retrieval-correctness) · [Apache Lucene #16242](https://github.com/apache/lucene/pull/16242) |
+**Neural ranking correctness.** Padding changed ListMLE/PListMLE loss and
+valid-document gradients. Maintainer-reported NanoBEIR R100 mean nDCG@10:
+ListMLE `~0.39 -> 0.529`; matched PListMLE `0.514 -> 0.525`.<br>
+[Research study](case-studies/listmle-padding-correctness.md) ·
+[sentence-transformers #3827](https://github.com/huggingface/sentence-transformers/pull/3827)
+
+**Query semantics.** An exact Korean source phrase produced `match=1`,
+`match_phrase(slop=0)=0`, and `match_phrase(slop=1)=1`. Fixed two graph
+position-gap paths.<br>
+[Research study](https://github.com/Incheonkirin/ko-evidence-bench/blob/main/case_studies/korean-retrieval-correctness/exact-phrase-zero-results.md) ·
+[Elasticsearch #152931](https://github.com/elastic/elasticsearch/pull/152931)
+
+**Text representation.** Added an offset-correct Hangul composition filter so
+canonically equivalent NFD/NFC modern Hangul can receive equivalent nori
+analysis.<br>
+[Research study](https://github.com/Incheonkirin/ko-evidence-bench/tree/main/case_studies/korean-retrieval-correctness) ·
+[Apache Lucene #16242](https://github.com/apache/lucene/pull/16242)
 
 ## End-To-End Search Relevance
 
@@ -27,11 +39,17 @@ Korean text -> Lucene/nori -> Elasticsearch query semantics
             -> cross-encoder reranking -> relevance evaluation
 ```
 
-| Research track | Question answered | Evidence |
-|---|---|---|
-| **Ranking-objective correctness** | Can irrelevant batch padding alter a query's optimization signal and downstream reranker quality? | [A Padding Bug That Changed ListMLE Training](case-studies/listmle-padding-correctness.md) |
-| **Representation correctness** | Which Unicode, morphology, and token-graph boundaries erase distinctions before ranking? | [Korean Retrieval Representation Invariants](https://github.com/Incheonkirin/ko-evidence-bench/tree/main/case_studies/korean-retrieval-correctness) |
-| **Polarity-aware retrieval** | Do lexical, dense, and reranked systems prefer evidence supporting the opposite proposition? | [When a Korean Analyzer Reverses Meaning](https://github.com/Incheonkirin/ko-evidence-bench/blob/main/case_studies/korean-retrieval-correctness/analyzer-reverses-meaning.md) |
+**[Ranking-objective correctness](case-studies/listmle-padding-correctness.md):**
+Can irrelevant batch padding alter a query's optimization signal and downstream
+reranker quality?
+
+**[Representation correctness](https://github.com/Incheonkirin/ko-evidence-bench/tree/main/case_studies/korean-retrieval-correctness):**
+Which Unicode, morphology, and token-graph boundaries erase distinctions before
+ranking?
+
+**[Polarity-aware retrieval](https://github.com/Incheonkirin/ko-evidence-bench/blob/main/case_studies/korean-retrieval-correctness/analyzer-reverses-meaning.md):**
+Do lexical, dense, and reranked systems prefer evidence supporting the opposite
+proposition?
 
 Each study follows the same evidence chain:
 
@@ -40,13 +58,29 @@ Each study follows the same evidence chain:
 
 ## Production And Public Impact
 
-| Area | Evidence |
-|---|---|
-| **Production search** | 5.5 years on 42Maru's search team: BM25 relevance, contrastive retrieval, RAG/MRC QA, large-scale indexing, and crawler systems. Enterprise evidence: [DSME semantic QA](http://www.aitimes.kr/news/articleView.html?idxno=13427), [Hana Bank OCR-NLP/AML](https://www.venturesquare.net/844917). |
-| **Production insurance ML** | Current MetLife work across features, training, deployment, retraining, monitoring, and online-tested churn, fraud-risk, channel, and cross-sell models. |
-| **Retrieval research lab** | 36,983 evidence passages; 544-row silver retrieval study; best checked-in `clause@20` `64.9%`; 444-triple polarity stress across lexical, dense, and reranked systems. [Reproducible public companion](https://github.com/Incheonkirin/ko-evidence-bench). |
-| **Public data assets** | Led task design, annotation guidelines, QA, and baseline evaluation for five NIA AI Hub releases totaling approximately **2.3M QA pairs and a 304M-token corpus**. Downstream reuse: [K-FinHallu](https://arxiv.org/abs/2605.29523), [FINALE](https://aclanthology.org/2024.finnlp-2.9/). |
-| **Open-source depth** | 16 merged external contributions across Lucene, Elasticsearch, sentence-transformers, Transformers, MLflow, and LlamaIndex. [Full PR search](https://github.com/search?q=author%3AIncheonkirin+type%3Apr&type=pullrequests). |
+**Production search.** 5.5 years on 42Maru's search team across BM25 relevance,
+contrastive retrieval, RAG/MRC QA, large-scale indexing, and crawler systems.
+Enterprise evidence: [DSME semantic QA](http://www.aitimes.kr/news/articleView.html?idxno=13427),
+[Hana Bank OCR-NLP/AML](https://www.venturesquare.net/844917).
+
+**Production insurance ML.** Current MetLife work across features, training,
+deployment, retraining, monitoring, and online-tested churn, fraud-risk, channel,
+and cross-sell models.
+
+**Retrieval research lab.** 36,983 evidence passages; 544-row silver retrieval
+study; best checked-in `clause@20` `64.9%`; 444-triple polarity stress across
+lexical, dense, and reranked systems.
+[Reproducible public companion](https://github.com/Incheonkirin/ko-evidence-bench).
+
+**Public data assets.** Led task design, annotation guidelines, QA, and baseline
+evaluation for five NIA AI Hub releases totaling approximately **2.3M QA pairs
+and a 304M-token corpus**. Downstream reuse:
+[K-FinHallu](https://arxiv.org/abs/2605.29523),
+[FINALE](https://aclanthology.org/2024.finnlp-2.9/).
+
+**Open-source depth.** 16 merged external contributions across Lucene,
+Elasticsearch, sentence-transformers, Transformers, MLflow, and LlamaIndex.
+[Full PR search](https://github.com/search?q=author%3AIncheonkirin+type%3Apr&type=pullrequests).
 
 ## Technical Scope
 
