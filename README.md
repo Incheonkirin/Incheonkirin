@@ -7,6 +7,8 @@ Korean search, fixed where it breaks — upstream: a Hangul NFD-composition char
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-3E2723?style=flat-square)](https://www.linkedin.com/in/mingi-jeong-8a9210180/)
 [![Email](https://img.shields.io/badge/Email-5D4037?style=flat-square&logo=gmail&logoColor=EFEBE9)](mailto:incheonkirin@gmail.com)
 
+I also turn failure modes observed in production MRC/LLM R&D into public data and evaluation assets: I led task design, annotation guidelines, quality review, and baseline evaluation for five NIA AI Hub releases later reused in Korean financial RAG and instruction-tuning research.
+
 ---
 
 > **Data that is valid on one side of a representation boundary silently breaks the other** — NFD Hangul vs. the analyzer, stop strings vs. byte-fragment tokens, bf16 logits vs. a float32 loss. Korean hits these boundaries constantly; English-only test suites never do.
@@ -32,6 +34,8 @@ Built or prototyped in `search_system` / production:
 
 ## Upstream contributions
 
+**16 merged upstream PRs as of July 2026** across Apache Lucene, Elasticsearch, sentence-transformers, Transformers, MLflow, and LlamaIndex. The detailed record is kept below so both impact and technical breadth are independently inspectable.
+
 **Korean search & ranking — primary**
 
 - **[sentence-transformers #3827](https://github.com/huggingface/sentence-transformers/pull/3827)** — ListMLE/PListMLE listwise reranker losses mixed padding positions into the Plackett-Luce normalizer; excluded the padding. The maintainer measured NanoBEIR nDCG@10 0.39 → 0.53 (ListMLE). ***(merged)***
@@ -41,18 +45,22 @@ Built or prototyped in `search_system` / production:
 **Embedding losses & model internals**
 
 - **[sentence-transformers #3817](https://github.com/huggingface/sentence-transformers/pull/3817)** — multi-GPU `gather_across_devices`: gathered positives in `GISTEmbedLoss`/`CachedGISTEmbedLoss` were masked as false negatives, so the cross-entropy target collapsed to `-inf` and the training signal silently vanished on rank > 0. Surfaced with a Korean polarity probe. ***(merged)***
+- **[sentence-transformers #3821](https://github.com/huggingface/sentence-transformers/pull/3821)** — made relative-margin filtering sign-independent in hard-negative mining and GIST losses, so negative positive-pair scores no longer invert the intended score ordering. ***(merged)***
+- **[sentence-transformers #3816](https://github.com/huggingface/sentence-transformers/pull/3816)** — avoided materializing the full non-FAISS query-corpus similarity matrix during hard-negative mining; a 10K x 100K local run reduced peak RSS from 4.56 GB to 1.09 GB while preserving outputs. ***(merged)***
+- **[sentence-transformers #3812](https://github.com/huggingface/sentence-transformers/pull/3812)** — added MPS support to cached-loss random-state handling. ***(merged)***
 - **[sentence-transformers #3800](https://github.com/huggingface/sentence-transformers/pull/3800)** — bf16/fp16 training crash across six learning-to-rank losses. ***(merged)***
 - **[huggingface/transformers #46530](https://github.com/huggingface/transformers/pull/46530)** — `StopStringCriteria` misses CJK stop strings on byte-level tokenizers ([#46519](https://github.com/huggingface/transformers/issues/46519)). ***(merged)***
 - **[huggingface/transformers #46670](https://github.com/huggingface/transformers/pull/46670)** — `RequestState.to_generation_output()` is the per-request output converter, and streaming continuous batching calls it once per generated token. On `main` it returned the request's own `generated_tokens`/`logprobs`/`timestamps` lists by reference and, on the soft-reset path, rewrote `self.generated_tokens`/`self.initial_tokens` while building the output, so an already-delivered streaming chunk changed as later tokens arrived and a soft-reset request's bookkeeping drifted until it stopped short of `max_new_tokens`. Reproduced with CPU regression tests and a CUDA continuous-batching run under forced cache pressure: unpatched, several of twelve greedy requests stopped at 21-23 of 30 tokens; patched, all reached 30 and delivered chunks stayed fixed. Made the conversion a snapshot. ***(merged)***
 - **[huggingface/transformers #46624](https://github.com/huggingface/transformers/pull/46624) / [#46763](https://github.com/huggingface/transformers/pull/46763)** — model/serving numeric internals: dynamic RoPE never reset `inv_freq` on the `layer_type=None` path; round the ue8m0 FP8 scale before quantizing so dequant matches the stored inverse. ***(merged)***
 - **[huggingface/transformers #46784](https://github.com/huggingface/transformers/pull/46784)** — Moonshine training loss was shifted twice, so it trained against `labels[..., 1:]`; compute loss against the labels themselves. ***(merged)***
 - **[run-llama/llama_index #21900](https://github.com/run-llama/llama_index/pull/21900)** — `RecursionError` in text splitters when a single CJK/emoji token exceeds `chunk_size`. ***(merged)***
+- **[mlflow/mlflow #23957](https://github.com/mlflow/mlflow/pull/23957)** — fixed `genai.evaluate()` dropping dataset expectations and tags when invoked with `scorers=[]`. ***(merged)***
 
-**Open / active**
+**Current / recent**
 
 - **[pytorch/pytorch #187779](https://github.com/pytorch/pytorch/pull/187779)** — MPS fused RMSNorm multiplied weights in fp16/bf16; do the weight multiply in fp32 before the final cast to match CPU/CUDA. *(approved, pending merge)*
-- **[vllm-project/vllm #45168](https://github.com/vllm-project/vllm/pull/45168)** — Hermes tool parser drops tool calls when a literal `</tool_call>` appears inside a JSON string argument ([#45167](https://github.com/vllm-project/vllm/issues/45167)). *(open)*
-- **[elastic/elasticsearch #152931](https://github.com/elastic/elasticsearch/pull/152931)** — graph phrase queries lose the position holes left by token-removing filters (nori decompound + part-of-speech, or synonym_graph + stop), so `match_phrase` with a document's exact source text can return nothing at slop 0; fixed the misplaced `SpanGap` and the dropped gaps between graph segments, with an `analysis-nori` end-to-end test. *(open)*
+- **[elastic/elasticsearch #152931](https://github.com/elastic/elasticsearch/pull/152931)** — graph phrase queries lost the position holes left by token-removing filters (nori decompound + part-of-speech, or synonym_graph + stop), so `match_phrase` with a document's exact source text could return nothing at slop 0; fixed the misplaced `SpanGap` and the dropped gaps between graph segments, with an `analysis-nori` end-to-end test. ***(merged)***
+- **[vllm-project/vllm #45168](https://github.com/vllm-project/vllm/pull/45168)** — reproduced a Hermes tool-parser boundary where a literal `</tool_call>` inside a JSON string argument drops the tool call ([#45167](https://github.com/vllm-project/vllm/issues/45167)). *(closed without merge)*
 
 **Also (Korean & search infra)** — Korean tokenizer offsets ([explosion/spaCy #13974](https://github.com/explosion/spaCy/pull/13974)), FAISS musllinux wheels restored ([facebookresearch/faiss #5272](https://github.com/facebookresearch/faiss/issues/5272)). Reported issue: [NAVER hcx-vllm-plugin #5](https://github.com/NAVER-Cloud-HyperCLOVA-X/hcx-vllm-plugin/issues/5) (`<|im_end|>` parser boundary). [Full PR list →](https://github.com/search?q=author%3AIncheonkirin+type%3Apr&type=pullrequests)
 
@@ -71,9 +79,16 @@ Closed-source enterprise systems I worked on at 42Maru, with the research and en
 - **AI ship-sales design-support system — Daewoo Shipbuilding (DSME)**: semantic QA over ~100K historical records for shipowners' pre-contract technical inquiries. [press](http://www.aitimes.kr/news/articleView.html?idxno=13427)
 - **AML / trade-based transaction detection — Hana Bank**: OCR-NLP over cross-border remittance invoices. [press](https://www.venturesquare.net/844917)
 
-### Public artifacts from 42Maru — NIA AI Hub
+### Public data and evaluation assets from 42Maru — NIA AI Hub
 
-Government-published Korean NLP artifacts from 42Maru projects I worked on: five AI Hub releases across news MRC, national-archives LLM instruction data, finance/legal MRC, numeric reasoning MRC, and table QA. ~2.3M labeled QA pairs plus a ~300M-token corpus.
+Led task design, annotation guidelines, quality review, and baseline evaluation for five government-published Korean NLP releases. The work translated failure modes observed during internal MRC/LLM R&D into public tasks across news MRC, national-archives LLM instruction data, finance/legal MRC, numerical reasoning MRC, and table QA: approximately 2.3M labeled QA pairs plus a 304M-token corpus.
+
+**Verified downstream reuse**
+
+- **[K-FinHallu](https://arxiv.org/abs/2605.29523)** by KAIST AI and KakaoBank uses the finance/legal MRC dataset as the source corpus for a multi-turn Korean financial RAG hallucination benchmark.
+- **[FINALE](https://aclanthology.org/2024.finnlp-2.9/)** at ACL FinNLP 2024 reuses the finance/legal, numerical-reasoning, and table-QA datasets to construct 76,433 filtered rationale examples. The paper reports an 8.7% average improvement across nine subtasks over its instruction-tuned baseline.
+
+This is downstream dataset impact, not a claim that I authored those papers: public evidence verifies reuse, while my role was the upstream task, guideline, QA, and baseline design described above.
 
 [news MRC](https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=577) ·
 [national-archives LLM corpus](https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71788) ·
