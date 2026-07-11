@@ -8,7 +8,7 @@ retrieval, hybrid search, and neural reranking.**
 After seven years shipping Korean search in production, I spent mid-2026
 taking my accumulated backlog of production-observed correctness bugs
 upstream across Lucene, Elasticsearch, sentence-transformers, and
-Transformers. I also turned production MRC/LLM failure modes into five
+Transformers. I also turned production MRC/RAG/LLM failure modes into five
 nationally funded public data assets later reused by KAIST/KakaoBank and
 ACL FinNLP research.
 
