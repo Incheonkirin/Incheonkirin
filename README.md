@@ -100,10 +100,11 @@ This is downstream dataset impact, not a claim that I authored those papers: pub
 
 ## Repo map
 
-- **[ko-evidence-bench](https://github.com/Incheonkirin/ko-evidence-bench)** — public, privacy-safe companion for Korean evidence-retrieval evaluation: source routing, abstention, surface robustness, and aggregate-only study artifacts.
-- **Private search lab** — Korean clause retrieval experiments: nori BM25 + BGE-M3 hybrid retrieval, analyzer probes, real-query failures, and traces that feed the upstream work above.
-- **Selected upstream workspaces** — [sentence-transformers](https://github.com/Incheonkirin/sentence-transformers), [transformers](https://github.com/Incheonkirin/transformers), [lucene](https://github.com/Incheonkirin/lucene), [elasticsearch](https://github.com/Incheonkirin/elasticsearch), [vllm](https://github.com/Incheonkirin/vllm): short-lived branches for submitted fixes and repros.
-- **Domain probes** — [insurance-bias-probe](https://github.com/Incheonkirin/insurance-bias-probe): focused artifacts around insurance-domain behavior and model/system bias.
+- **[search_system](https://github.com/Incheonkirin/search_system)** — runnable Korean insurance-clause retrieval stack: nori BM25, BGE-M3 embeddings, hybrid fusion, cross-encoder reranking, Elasticsearch, and a FastAPI service.
+- **[ko-evidence-bench](https://github.com/Incheonkirin/ko-evidence-bench)** — privacy-safe evaluation companion for Korean evidence retrieval: source routing, abstention, surface robustness, synthetic probes, and aggregate study artifacts.
+- **[fraud-dataset-validity](https://github.com/Incheonkirin/fraud-dataset-validity)** — reproducible shortcut and validity audit of public synthetic fraud datasets, with external anchors and model-sensitivity checks. It is a dataset-audit case study, not a claim of real-world insurance-fraud performance.
+- **[insurance-bias-probe](https://github.com/Incheonkirin/insurance-bias-probe)** — controlled demographic-consistency probes for Korean insurance answers.
+- **Upstream evidence** — the merged fixes are inspected in the [full PR record](https://github.com/search?q=author%3AIncheonkirin+type%3Apr&type=pullrequests); the local upstream mirrors remain private working copies rather than portfolio projects.
 
 ---
 
