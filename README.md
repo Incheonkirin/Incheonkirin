@@ -12,6 +12,7 @@ Transformers. I also turned production MRC/RAG/LLM failure modes into five
 nationally funded public data assets later reused by KAIST/KakaoBank and
 ACL FinNLP research.
 
+[![Blog](https://img.shields.io/badge/Blog-4E342E?style=flat-square)](https://incheonkirin.github.io)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-3E2723?style=flat-square)](https://www.linkedin.com/in/mingi-jeong-8a9210180/)
 [![Email](https://img.shields.io/badge/Email-5D4037?style=flat-square&logo=gmail&logoColor=EFEBE9)](mailto:incheonkirin@gmail.com)
 
