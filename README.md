@@ -38,6 +38,15 @@ verified the constants against Unicode Hangul syllable composition.<br>
 [NFD Hangul vs. the analyzer](https://github.com/Incheonkirin/ko-evidence-bench/tree/main/case_studies/korean-retrieval-correctness) ·
 [Apache Lucene #16242](https://github.com/apache/lucene/pull/16242)
 
+**Serving correctness.** Streaming continuous batching converts request state
+to output once per generated token; the converter returned live buffers by
+reference and mutated the request on the soft-reset path, so already-delivered
+chunks changed and soft-reset requests stopped short of `max_new_tokens`.
+Under forced cache pressure on CUDA, unpatched greedy runs stopped at 21-23
+of 30 tokens; patched, all twelve reached 30 with first chunks stable.<br>
+[Snapshotting generation output](https://incheonkirin.github.io/posts/2026-07-14-snapshotting-generation-output-in-transformers-continuous-batching) ·
+[Transformers #46670](https://github.com/huggingface/transformers/pull/46670)
+
 ## End-To-End Search Relevance
 
 ```text
