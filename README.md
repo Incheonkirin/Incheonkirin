@@ -3,7 +3,7 @@
 **Applied ML · Search & Retrieval**
 
 At MetLife, I develop and operate ML models. Before that, I spent 5.5 years
-building Korean search and QA systems at 42Maru.
+building Korean search and mrc model at 42Maru.
 
 `7 years` · `42Maru Search 2019–2024` · `MetLife Production ML` · `16 merged upstream PRs` · `5 national NLP data initiatives`
 
