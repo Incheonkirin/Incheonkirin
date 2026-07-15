@@ -1,15 +1,18 @@
 # Mingi Jeong (정민기)
 
-**Search & Retrieval Applied Scientist spanning lexical retrieval, dense
-retrieval, hybrid search, and neural reranking.**
+**Applied ML · Search & Retrieval**
+
+At MetLife's Inno-Biz Team within the Corporate Business Management Function,
+I develop and operate ML models for new-business risk, fraud detection, agent
+activation, and cross-sell. Before that, I spent 5.5 years building Korean
+search and QA systems at 42Maru.
 
 `7 years` · `42Maru Search 2019–2024` · `MetLife Production ML` · `16 merged upstream PRs` · `5 national NLP data initiatives`
 
-After seven years shipping Korean search in production, I spent mid-2026
-taking my accumulated backlog of production-observed correctness bugs
-upstream across Lucene, Elasticsearch, sentence-transformers, and
-Transformers. I also turned production MRC/RAG/LLM failure modes into five
-nationally funded public data assets later reused by KAIST/KakaoBank and
+My public work traces search, ranking, and ML-system failures to reproducible
+tests and upstream fixes across Lucene, Elasticsearch, sentence-transformers,
+and Transformers. I also helped turn production MRC/RAG failure modes into
+five nationally funded public data assets later reused by KAIST/KakaoBank and
 ACL FinNLP research.
 
 [![Blog](https://img.shields.io/badge/Blog-4E342E?style=flat-square)](https://incheonkirin.github.io)
@@ -66,9 +69,9 @@ indexing, and crawler systems. In the press:
 [DSME semantic QA, 2019](http://www.aitimes.kr/news/articleView.html?idxno=13427) ·
 [Hana Bank OCR-NLP/AML, 2021](https://www.venturesquare.net/844917).
 
-**Production insurance ML, MetLife (current).** Features, training,
-deployment, retraining, monitoring, and online-tested churn, fraud-risk,
-channel, and cross-sell models.
+**Production insurance ML, MetLife (current).** Inno-Biz Team, Corporate
+Business Management Function. New-business risk, fraud detection, agent
+activation, and cross-sell models on Azure ML and Databricks.
 
 **Public benchmark leadership.** Turned failure modes observed while developing
 production MRC and LLM systems into five NIA AI Hub data initiatives. Initiated
