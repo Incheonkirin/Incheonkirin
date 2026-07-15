@@ -2,8 +2,7 @@
 
 **Applied ML · Search & Retrieval**
 
-At MetLife, I develop and operate ML models for new-business risk, fraud
-detection, agent activation, and cross-sell. Before that, I spent 5.5 years
+At MetLife, I develop and operate ML models. Before that, I spent 5.5 years
 building Korean search and QA systems at 42Maru.
 
 `7 years` · `42Maru Search 2019–2024` · `MetLife Production ML` · `16 merged upstream PRs` · `5 national NLP data initiatives`
