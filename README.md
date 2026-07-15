@@ -2,10 +2,9 @@
 
 **Applied ML · Search & Retrieval**
 
-At MetLife's Inno-Biz Team within the Corporate Business Management Function,
-I develop and operate ML models for new-business risk, fraud detection, agent
-activation, and cross-sell. Before that, I spent 5.5 years building Korean
-search and QA systems at 42Maru.
+At MetLife, I develop and operate ML models for new-business risk, fraud
+detection, agent activation, and cross-sell. Before that, I spent 5.5 years
+building Korean search and QA systems at 42Maru.
 
 `7 years` · `42Maru Search 2019–2024` · `MetLife Production ML` · `16 merged upstream PRs` · `5 national NLP data initiatives`
 
@@ -69,9 +68,8 @@ indexing, and crawler systems. In the press:
 [DSME semantic QA, 2019](http://www.aitimes.kr/news/articleView.html?idxno=13427) ·
 [Hana Bank OCR-NLP/AML, 2021](https://www.venturesquare.net/844917).
 
-**Production insurance ML, MetLife (current).** Inno-Biz Team, Corporate
-Business Management Function. New-business risk, fraud detection, agent
-activation, and cross-sell models on Azure ML and Databricks.
+**Production insurance ML, MetLife (current).** New-business risk, fraud
+detection, agent activation, and cross-sell models on Azure ML and Databricks.
 
 **Public benchmark leadership.** Turned failure modes observed while developing
 production MRC and LLM systems into five NIA AI Hub data initiatives. Initiated
