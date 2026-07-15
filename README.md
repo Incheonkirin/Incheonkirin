@@ -2,8 +2,9 @@
 
 **Applied ML · Search & Retrieval**
 
-At MetLife, I develop and operate ML models. Before that, I spent 5.5 years
-building Korean search and MRC models at 42Maru.
+At MetLife, I build and operate ML systems for insurance business decisions
+and follow their performance after deployment. Before that, I spent 5.5 years
+building Korean search and MRC systems at 42Maru.
 
 `7 years` · `42Maru Search 2019–2024` · `MetLife Production ML` · `16 merged upstream PRs` · `5 national NLP data initiatives`
 
@@ -67,9 +68,11 @@ indexing, and crawler systems. In the press:
 [DSME semantic QA, 2019](http://www.aitimes.kr/news/articleView.html?idxno=13427) ·
 [Hana Bank OCR-NLP/AML, 2021](https://www.venturesquare.net/844917).
 
-**Production insurance ML, MetLife (current).** Develop and operate ML systems
-for business decision support, with experience improving operational outcomes
-and supporting enterprise AI governance.
+**Production insurance ML, MetLife (current).** Build ML systems for business
+workflows, evaluate their behavior after deployment, and improve the processes
+used to operate and update them. The work has improved operational and
+risk-related outcomes and also includes enterprise AI governance and
+collaboration across business and technical teams.
 
 **Public benchmark leadership.** Turned failure modes observed while developing
 production MRC and LLM systems into five NIA AI Hub data initiatives. Initiated
@@ -108,8 +111,8 @@ from ranking losses to a hard-negative-mining memory fix (peak RSS
 `Hybrid Search` · `Vector Search` · `Learning to Rank` ·
 `Cross-Encoder Reranking` · `Hard-Negative Mining` · `Embeddings` · `Lucene` ·
 `Elasticsearch` · `OpenSearch` · `FAISS` · `PyTorch` ·
-`sentence-transformers` · `Databricks` · `ANN` · `nDCG` · `Recall` ·
-`RAG Evaluation`
+`sentence-transformers` · `Databricks` · `Model Operations` · `AI Governance` ·
+`ANN` · `nDCG` · `Recall` · `RAG Evaluation`
 
 <details>
 <summary><strong>Full upstream record: 16 merged contributions</strong></summary>
