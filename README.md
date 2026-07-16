@@ -30,14 +30,14 @@ PListMLE `0.514 -> 0.525`.<br>
 **Query semantics.** An exact Korean source phrase produced `match=1`,
 `match_phrase(slop=0)=0`, and `match_phrase(slop=1)=1`. Fixed two graph
 position-gap paths; merged with a nori end-to-end regression.<br>
-[The phrase that returned zero results](https://github.com/Incheonkirin/ko-evidence-bench/blob/main/case_studies/korean-retrieval-correctness/exact-phrase-zero-results.md) ·
+[The phrase that returned zero results](https://github.com/Incheonkirin/korean-search-correctness/blob/main/case_studies/korean-retrieval-correctness/exact-phrase-zero-results.md) ·
 [Elasticsearch #152931](https://github.com/elastic/elasticsearch/pull/152931)
 
 **Text representation.** Added an offset-correct Hangul composition filter so
 canonically equivalent NFD/NFC modern Hangul receives equivalent nori
 analysis. Merged same-day by the Lucene PMC member who independently
 verified the constants against Unicode Hangul syllable composition.<br>
-[NFD Hangul vs. the analyzer](https://github.com/Incheonkirin/ko-evidence-bench/tree/main/case_studies/korean-retrieval-correctness) ·
+[NFD Hangul vs. the analyzer](https://github.com/Incheonkirin/korean-search-correctness/tree/main/case_studies/korean-retrieval-correctness) ·
 [Apache Lucene #16242](https://github.com/apache/lucene/pull/16242)
 
 **Serving correctness.** Streaming continuous batching converts request state
@@ -97,7 +97,7 @@ retrieval study, cross-text reranking lifted `clause@20` from `56.4%` to
 `64.9%` (+8.5pp, paired bootstrap CI +5.9 to +11.2); a 444-triple polarity
 stress test compares lexical, dense, and reranked systems. Reported as
 aggregate silver diagnostics.
-[Reproducible public companion](https://github.com/Incheonkirin/ko-evidence-bench).
+[Reproducible public companion](https://github.com/Incheonkirin/korean-search-correctness).
 
 **Open-source depth.** 16 merged external contributions across Lucene,
 Elasticsearch, sentence-transformers, Transformers, MLflow, and LlamaIndex —
@@ -154,7 +154,7 @@ from ranking losses to a hard-negative-mining memory fix (peak RSS
 ## Repository Map
 
 - **[search_system](https://github.com/Incheonkirin/search_system):** runnable Korean insurance-clause retrieval with nori BM25, BGE-M3, hybrid fusion, cross-encoder reranking, Elasticsearch, and FastAPI.
-- **[ko-evidence-bench](https://github.com/Incheonkirin/ko-evidence-bench):** privacy-safe retrieval evaluation, synthetic probes, aggregate studies, and representation-correctness research.
+- **[ko-evidence-bench](https://github.com/Incheonkirin/korean-search-correctness):** privacy-safe retrieval evaluation, synthetic probes, aggregate studies, and representation-correctness research.
 - **[fraud-dataset-validity](https://github.com/Incheonkirin/fraud-dataset-validity):** reproducible validity audit of public synthetic fraud datasets.
 - **[insurance-bias-probe](https://github.com/Incheonkirin/insurance-bias-probe):** controlled demographic-consistency probes for Korean insurance answers.
 
